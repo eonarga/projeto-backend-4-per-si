@@ -11,6 +11,7 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   root: true,
+  'prettier/prettier.js': 0,
   env: {
     node: true,
     jest: true,
@@ -21,5 +22,9 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    "prettier/prettier.js": [
+      "error",
+      { endOfLine: "auto"}
+    ]
   },
 };
