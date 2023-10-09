@@ -18,22 +18,24 @@ export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
   @Get()
-  getAllBooks(): Promise<Book[]> {
-    return this.booksService.getAllBooks();
+  async getAllBooks(): Promise<Book[]> {
+    return await this.booksService.getAllBooks();
   }
 
   @Get('id/:bookID')
-  async getBookById(@Param('bookID') bookID: string) {
+  async getBookById(@Param('bookID') bookID: string): Promise<Book> {
     return await this.booksService.getBookById(bookID);
   }
 
   @Get('name/:bookName')
-  async getBookByName(@Param('bookName') bookName: string) {
+  async getBookByName(@Param('bookName') bookName: string): Promise<Book[]> {
     return await this.booksService.getBookByName(bookName);
   }
 
   @Get('author/:authorName')
-  async getBookByAuthorName(@Param('authorName') authorName: string) {
+  async getBookByAuthorName(
+    @Param('authorName') authorName: string,
+  ): Promise<Book[]> {
     return await this.booksService.getBookByAuthorName(authorName);
   }
 
@@ -43,12 +45,15 @@ export class BooksController {
   }
 
   @Delete(':bookID')
-  async deleteBook(@Param('bookID') bookID: string) {
+  async deleteBook(@Param('bookID') bookID: string): Promise<Book> {
     return await this.booksService.deleteBook(bookID);
   }
 
   @Patch(':bookID')
-  async updateBook(@Param('bookID') bookID: string, @Body() book: BookDTO) {
-    return await this.booksService.updateBook(bookID, book);
+  async updateBook(
+    @Param('bookID') bookID: string,
+    @Body() newBook: BookDTO,
+  ): Promise<Book> {
+    return await this.booksService.updateBook(bookID, newBook);
   }
 }

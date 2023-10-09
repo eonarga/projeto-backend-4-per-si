@@ -6,7 +6,7 @@ import { BookDTO } from 'src/DTO/book.dto';
 
 @Injectable()
 export class BookRepository {
-  constructor(@InjectModel('books') private readonly bookModel: Model<Book>) {}
+  constructor(@InjectModel('book') private readonly bookModel: Model<Book>) {}
 
   async getAllBooks(): Promise<Book[]> {
     return await this.bookModel
@@ -16,11 +16,11 @@ export class BookRepository {
   }
 
   async saveBook(newBook: BookDTO): Promise<Book> {
-    const createdBook = new this.bookModel(newBook);
-    return createdBook.save();
+    const savedBook = new this.bookModel(newBook);
+    return await savedBook.save();
   }
 
-  async findById(bookID: string): Promise<Book> {
+  async getBookById(bookID: string): Promise<Book> {
     return await this.bookModel.findById(bookID, { __v: false });
   }
 
@@ -28,11 +28,11 @@ export class BookRepository {
     return await this.bookModel.findOneAndDelete({ _id: bookID });
   }
 
-  async updateBook(bookID: string, book: BookDTO): Promise<Book> {
-    return await this.bookModel.replaceOne({ _id: bookID }, book);
+  async updateBook(bookID: string, newBook: BookDTO): Promise<Book> {
+    return await this.bookModel.replaceOne({ _id: bookID }, newBook);
   }
 
-  async findBookByName(bookName: string): Promise<Book[]> {
+  async getBookByName(bookName: string): Promise<Book[]> {
     return await this.bookModel.find(
       { name: { $regex: bookName, $options: 'i' } },
       { __v: false },

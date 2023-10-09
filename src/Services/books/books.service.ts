@@ -19,54 +19,43 @@ export class BooksService {
 
   async getBookById(bookID: string): Promise<Book> {
     try {
-      return await this.bookRepository.findById(bookID);
+      return await this.bookRepository.getBookById(bookID);
     } catch (e) {
       throw new BadRequestException('This book does not exist');
     }
   }
 
   async getBookByName(bookName: string): Promise<Book[]> {
-    return this.bookRepository.findBookByName(bookName);
+    const foundBooks = await this.bookRepository.getBookByName(bookName);
+
+    if (foundBooks.length) return foundBooks;
+    else throw new BadRequestException('No results for this author');
   }
 
   async saveBook(newBook: BookDTO): Promise<Book> {
     return await this.bookRepository.saveBook(newBook);
   }
 
-  async deleteBook(bookID: string) {
+  async deleteBook(bookID: string): Promise<Book> {
     try {
-      const bookExists = await this.bookRepository.findById(bookID);
-
-      if (bookExists) {
-        const deletedBook = await this.bookRepository.deleteBook(bookID);
-
-        if (deletedBook) return 'This book was deleted successfully';
-      } else {
-        throw new BadRequestException('This book does not exist');
-      }
+      return await this.bookRepository.deleteBook(bookID);
     } catch (e) {
-      throw new BadRequestException('This book does not exist');
+      throw new BadRequestException('This book does not exist.');
     }
   }
 
-  async updateBook(bookID: string, book: BookDTO) {
-    try {
-      const bookExists = await this.bookRepository.findById(bookID);
+  async updateBook(bookID: string, newBook: BookDTO): Promise<Book> {
+    const bookExists = await this.bookRepository.getBookById(bookID);
 
-      if (bookExists) {
-        const updatedBook = await this.bookRepository.updateBook(bookID, book);
+    if (!bookExists) throw new BadRequestException('No results.');
 
-        if (updatedBook) return 'This book was updated successfully';
-      } else {
-        throw new BadRequestException('This book does not exist');
-      }
-    } catch (e) {
-      throw new BadRequestException('This book does not exist');
-    }
+    const updatedBook = await this.bookRepository.updateBook(bookID, newBook);
+
+    if (updatedBook) return this.bookRepository.getBookById(bookID);
   }
 
   async getBookByAuthorName(authorName: string): Promise<Book[]> {
-    let authorNameArray = authorName.split(' ');
+    const authorNameArray = authorName.split(' ');
 
     const foundBooks =
       await this.bookRepository.getBookByAuthorName(authorNameArray);

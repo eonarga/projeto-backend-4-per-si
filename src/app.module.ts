@@ -13,7 +13,7 @@ import { BookRepository } from './Mongo/Repository/book.repository';
       useUnifiedTopology: true,
     }),
 
-    MongooseModule.forFeature([{ name: 'books', schema: BookSchema }]),
+    MongooseModule.forFeature([{ name: 'book', schema: BookSchema }]),
   ],
   controllers: [BooksController],
   providers: [BooksService, BookRepository],
