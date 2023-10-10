@@ -8,10 +8,7 @@ import { BookRepository } from './Mongo/Repository/book.repository';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/biblioteca', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }),
+    MongooseModule.forRoot('mongodb://localhost/biblioteca'),
 
     MongooseModule.forFeature([{ name: 'book', schema: BookSchema }]),
   ],

@@ -29,7 +29,7 @@ export class BookRepository {
   }
 
   async updateBook(bookID: string, newBook: BookDTO): Promise<Book> {
-    return await this.bookModel.replaceOne({ _id: bookID }, newBook);
+    return await this.bookModel.findByIdAndUpdate({ _id: bookID }, newBook);
   }
 
   async getBookByName(bookName: string): Promise<Book[]> {
