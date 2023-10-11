@@ -9,7 +9,7 @@ import {
   Put,
   Patch,
 } from '@nestjs/common';
-import { BooksService } from 'src/Services/books/books.service';
+import { BooksService } from 'src/Services/books.service';
 import { BookDTO } from 'src/DTO/book.dto';
 import { Book } from 'src/Mongo/Interfaces/book.interface';
 

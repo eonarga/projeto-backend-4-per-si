@@ -63,4 +63,23 @@ export class BooksService {
     if (foundBooks.length) return foundBooks;
     else throw new BadRequestException('No results for this author');
   }
+
+  async updateBookAvailability(
+    bookId: string,
+    isAvailable: boolean,
+  ): Promise<Book> {
+    const book = await this.bookRepository.getBookById(bookId);
+
+    if (!book) {
+      throw new Error('Livro não encontrado');
+    }
+
+    // Atualize o status de disponibilidade do livro
+    book.isAvailable = isAvailable;
+
+    // Salve as alterações no banco de dados
+    const updatedBook = await book.save();
+
+    return updatedBook;
+  }
 }
