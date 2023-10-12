@@ -9,5 +9,6 @@ import { BookRepository } from '../Mongo/Repository/book.repository';
   imports: [MongooseModule.forFeature([{ name: 'Book', schema: BookSchema }])],
   controllers: [BooksController],
   providers: [BooksService, BookRepository],
+  exports: [BooksService],
 })
 export class BooksModule {}

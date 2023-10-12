@@ -9,8 +9,7 @@ import { BooksModule } from './Modules/books.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/biblioteca'),
-
+    MongooseModule.forRoot('mongodb://127.0.0.1/biblioteca'),
     MongooseModule.forFeature([{ name: 'Book', schema: BookSchema }]),
     BooksModule,
     LoansModule,
