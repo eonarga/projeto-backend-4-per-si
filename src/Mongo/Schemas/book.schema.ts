@@ -8,4 +8,5 @@ export const BookSchema = new Schema({
   releaseYear: Number,
   publisher: String,
   pages: Number,
+  isAvailable: Boolean,
 });
