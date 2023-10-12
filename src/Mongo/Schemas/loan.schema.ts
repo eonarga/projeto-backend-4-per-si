@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { AuthorSchema } from './author.schema';
+import { AuthorSchema } from '../Schemas/author.schema';
 import * as mongoose from 'mongoose';
 
 export const LoanSchema = new Schema({
