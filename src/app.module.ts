@@ -11,7 +11,7 @@ import { BooksModule } from './Modules/books.module';
   imports: [
     MongooseModule.forRoot('mongodb://localhost/biblioteca'),
 
-    MongooseModule.forFeature([{ name: 'book', schema: BookSchema }]),
+    MongooseModule.forFeature([{ name: 'Book', schema: BookSchema }]),
     BooksModule,
     LoansModule,
   ],

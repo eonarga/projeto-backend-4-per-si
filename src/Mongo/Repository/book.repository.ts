@@ -6,7 +6,7 @@ import { BookDTO } from 'src/DTO/book.dto';
 
 @Injectable()
 export class BookRepository {
-  constructor(@InjectModel('book') private readonly bookModel: Model<Book>) {}
+  constructor(@InjectModel('Book') private readonly bookModel: Model<Book>) {}
 
   async getAllBooks(): Promise<Book[]> {
     return await this.bookModel
